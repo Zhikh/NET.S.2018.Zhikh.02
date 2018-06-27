@@ -3,12 +3,23 @@ using System.Collections;
 
 namespace Logic.Task1
 {
+    /// <summary>
+    /// This class works with bit representations of the received values.
+    /// </summary>
     public static class BitWorker
     {
         private static readonly int MaxSize = 32;
         private static readonly int DefaultValue = 0;
 
         #region Public Methods
+        /// <summary>
+        /// This method inserts bits from two values in new value by indexes.
+        /// </summary>
+        /// <param name="firstElement"> First value </param>
+        /// <param name="secondElement"> Second value </param>
+        /// <param name="i"> Left index </param>
+        /// <param name="j"> Right index </param>
+        /// <returns> New value was created on first and second values base </returns>
         public static int Insert(int firstElement, int secondElement, int i, int j)
         {
             if ((firstElement == 0) && (secondElement == 0))
@@ -21,15 +32,21 @@ namespace Logic.Task1
             Mix(firstElement, secondElement, i, j, result);
 
             return GetIntFromBitArray(result);
-        }   
+        }
         #endregion
 
         #region Private Methods
+        /// <summary>
+        /// This method convert BitArray to integer value.
+        /// </summary>
+        /// <param name="bitArray"> Array of bits </param>
+        /// <returns> Integer value </returns>
+        /// <exception cref="ArgumentOutOfRangeException"> Sends when BitArray more than MaxSize of integer </exception>
         private static int GetIntFromBitArray(BitArray bitArray)
         {
             if (bitArray.Length > MaxSize)
             {
-                throw new ArgumentException("Argument length shall be at most 32 bits.");
+                throw new ArgumentOutOfRangeException("Argument length shall be at most 32 bits.");
             }
 
             int[] array = new int[1];
@@ -39,6 +56,16 @@ namespace Logic.Task1
             return array[0];
         }
 
+        /// <summary>
+        /// This method mixes bits from two integer values.
+        /// </summary>
+        /// <param name="firstElement"> First value </param>
+        /// <param name="secondElement"> Second value </param>
+        /// <param name="i"> Left index </param>
+        /// <param name="j"> Right index </param>
+        /// <param name="bitArray"> Array of bits </param>
+        /// <exception cref="ArgumentOutOfRangeException"> Sends when j more than MaxSize of integer </exception>
+        /// <exception cref="ArgumentException"> Sends when i more than j </exception>
         private static void Mix(int firstElement, int secondElement, int i, int j, BitArray result)
         {
             if (i > j)
@@ -48,7 +75,7 @@ namespace Logic.Task1
 
             if (j > MaxSize)
             {
-                throw new ArgumentException("Argument j can't be more than max size of type in bits!");
+                throw new ArgumentOutOfRangeException("Argument j can't be more than max size of type in bits!");
             }
 
             for (int k = 0; k < 32; ++k)
