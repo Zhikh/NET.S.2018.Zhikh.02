@@ -45,6 +45,5 @@ namespace Logic.Task2.NUnitTests
 
             CollectionAssert.AreNotEqual(expected, actual);
         }
-
     }
 }
