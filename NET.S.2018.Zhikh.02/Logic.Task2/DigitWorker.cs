@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Logic.Task2
 {
@@ -13,8 +14,14 @@ namespace Logic.Task2
         /// <param name="elements"> Elements for searching in </param>
         /// <param name="checkValue"> Value for searching elements in array </param>
         /// <returns> List of elements that contain check value </returns>
-        public static List<T> Filter<T>(T[] elements, T checkValue) where T : struct
+        /// <exception cref="ArgumentNullException"> If elements null </exception>
+        public static T[] Filter<T>(T[] elements, T checkValue) where T : struct
         {
+            if (elements == null)
+            {
+                throw new ArgumentNullException("Argument elements can't benull!");
+            }
+
             string checkString = checkValue.ToString();
 
             var result = new List<T>();
@@ -27,7 +34,7 @@ namespace Logic.Task2
                 }
             }
 
-            return result;
+            return result.ToArray();
         }
     }
 }
