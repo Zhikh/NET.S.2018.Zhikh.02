@@ -49,7 +49,7 @@ namespace Logic.Task2.Tests
         
         [DataSource("System.Data.SqlClient", @"Data Source=DESKTOP-7HKSO63\SQLEXPRESS;Initial Catalog=NET.S.2018.Zhikh.02;integrated security=True;Pooling=False", "FilterTestData", DataAccessMethod.Sequential)]
         [TestMethod]
-        public void FromDataSourceTest()
+        public void Filter_FromDataSource_ReturnDataSourceResult()
         {
             string elementsFromDb = TestContext.DataRow["Element"].ToString();
             int[] elements = ParseToIntArray(elementsFromDb);
