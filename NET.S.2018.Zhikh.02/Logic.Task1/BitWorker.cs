@@ -64,18 +64,23 @@ namespace Logic.Task1
         /// <param name="i"> Left index </param>
         /// <param name="j"> Right index </param>
         /// <param name="bitArray"> Array of bits </param>
-        /// <exception cref="ArgumentOutOfRangeException"> Sends when j more than MaxSize of integer </exception>
+        /// <exception cref="ArgumentOutOfRangeException"> Sends when j more than MaxSize of integer or when i less than 0</exception>
         /// <exception cref="ArgumentException"> Sends when i more than j </exception>
         private static void Mix(int firstElement, int secondElement, int i, int j, BitArray result)
         {
-            if (i > j)
+            if (i < 0)
             {
-                throw new ArgumentException("Argument i can't be more than argument j!");
+                throw new ArgumentOutOfRangeException("Argument i can't be less than 0!");
             }
 
             if (j > MaxSize)
             {
                 throw new ArgumentOutOfRangeException("Argument j can't be more than max size of type in bits!");
+            }
+
+            if (i > j)
+            {
+                throw new ArgumentException("Argument i can't be more than argument j!");
             }
 
             for (int k = 0; k < 32; ++k)
