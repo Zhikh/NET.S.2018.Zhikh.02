@@ -27,35 +27,13 @@ namespace Logic.Task1
                 return DefaultValue;
             }
 
-            var result = new BitArray(MaxSize);
+            Mix(ref firstElement, secondElement, i, j);
 
-            Mix(firstElement, secondElement, i, j, result);
-
-            return GetIntFromBitArray(result);
+            return firstElement;
         }
         #endregion
 
         #region Private Methods
-        /// <summary>
-        /// This method convert BitArray to integer value.
-        /// </summary>
-        /// <param name="bitArray"> Array of bits </param>
-        /// <returns> Integer value </returns>
-        /// <exception cref="ArgumentOutOfRangeException"> Sends when BitArray more than MaxSize of integer </exception>
-        private static int GetIntFromBitArray(BitArray bitArray)
-        {
-            if (bitArray.Length > MaxSize)
-            {
-                throw new ArgumentOutOfRangeException("Argument length shall be at most 32 bits.");
-            }
-
-            int[] array = new int[1];
-
-            bitArray.CopyTo(array, 0);
-
-            return array[0];
-        }
-
         /// <summary>
         /// This method mixes bits from two integer values.
         /// </summary>
@@ -66,7 +44,7 @@ namespace Logic.Task1
         /// <param name="bitArray"> Array of bits </param>
         /// <exception cref="ArgumentOutOfRangeException"> Sends when j more than MaxSize of integer or when i less than 0</exception>
         /// <exception cref="ArgumentException"> Sends when i more than j </exception>
-        private static void Mix(int firstElement, int secondElement, int i, int j, BitArray result)
+        private static void Mix(ref int firstElement, int secondElement, int i, int j)
         {
             if (i < 0)
             {
@@ -87,11 +65,7 @@ namespace Logic.Task1
             {
                 if ((k >= i) && (k <= j))
                 {
-                    result.Set(k, Convert.ToBoolean((secondElement >> (k - i)) & 1));
-                }
-                else
-                {
-                    result.Set(k, Convert.ToBoolean((firstElement >> k) & 1));
+                    firstElement |= ((secondElement >> (k - i)) & 1) << k;
                 }
             }
         }
