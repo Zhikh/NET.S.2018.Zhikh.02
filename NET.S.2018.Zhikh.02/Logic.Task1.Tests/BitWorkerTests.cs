@@ -19,6 +19,26 @@ namespace Logic.Task1.Tests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void Insert_InsertWithUsingOfNegativeFirtsIndex_ThrowArgumentOutOfRangeException()
+            => BitWorker.Insert(1, 1, -1, 34);
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void Insert_InsertWithUsingOfNegativeLastIndex_ThrowArgumentOutOfRangeException()
+            => BitWorker.Insert(1, 1, 0, -34);
+
+        [TestMethod]
+        public void Insert_InsertWithMaxValue_ReturnResultValueFromExample()
+        {
+            int expected = 1;
+
+            int actual = BitWorker.Insert(int.MaxValue, 0, 1, 30);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Insert_InsertWithUsingOfIndexMoreThanMaxIntSize_ThrowArgumentOutOfRangeException()
             => BitWorker.Insert(1, 1, 0, 34);
 
