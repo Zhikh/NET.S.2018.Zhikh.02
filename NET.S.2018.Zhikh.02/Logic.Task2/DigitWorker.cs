@@ -8,6 +8,7 @@ namespace Logic.Task2
     /// </summary>
     public static class DigitWorker
     {
+        #region Public methods
         /// <summary>
         /// This method inserts bits from two values in new value by indexes.
         /// </summary>
@@ -22,8 +23,6 @@ namespace Logic.Task2
                 throw new ArgumentNullException("Argument elements can't benull!");
             }
 
-            string checkString = checkValue.ToString();
-
             var result = new List<int>();
 
             foreach (var element in elements)
@@ -36,7 +35,9 @@ namespace Logic.Task2
 
             return result.ToArray();
         }
+        #endregion
 
+        #region Private methods
         /// <summary>
         /// This method checks if checkValue in value.
         /// </summary>
@@ -49,21 +50,27 @@ namespace Logic.Task2
                 modulo = value % 10;
 
             bool result = false;
-            
-            if ((modulo == checkValue) || (wholePart == checkValue))
+
+            do
             {
-                result = true;
-            }
-            else
-            {
-                if (wholePart != 0)
+                if ((modulo == checkValue) || (wholePart == checkValue))
                 {
-                    result = wholePart.IsContain(checkValue);
+                    result = true;
+                }
+                else
+                {
+                    if (wholePart != 0)
+                    {
+                        modulo = wholePart % 10;
+
+                        wholePart /= 10;
+                    }
                 }
             }
+            while ((!result) && (wholePart != 0));
 
             return result;
-            
         }
+        #endregion
     }
 }
