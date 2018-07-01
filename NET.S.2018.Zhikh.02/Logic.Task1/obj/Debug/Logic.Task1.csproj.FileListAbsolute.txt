@@ -1,6 +1,0 @@
-C:\Users\Zhikh Anastasya\Documents\NET.S.2018.Zhikh.02\NET.S.2018.Zhikh.02\Logic.Task1\bin\Debug\Logic.Task1.dll
-C:\Users\Zhikh Anastasya\Documents\NET.S.2018.Zhikh.02\NET.S.2018.Zhikh.02\Logic.Task1\bin\Debug\Logic.Task1.pdb
-C:\Users\Zhikh Anastasya\Documents\NET.S.2018.Zhikh.02\NET.S.2018.Zhikh.02\Logic.Task1\obj\Debug\Logic.Task1.csprojResolveAssemblyReference.cache
-C:\Users\Zhikh Anastasya\Documents\NET.S.2018.Zhikh.02\NET.S.2018.Zhikh.02\Logic.Task1\obj\Debug\Logic.Task1.csproj.CoreCompileInputs.cache
-C:\Users\Zhikh Anastasya\Documents\NET.S.2018.Zhikh.02\NET.S.2018.Zhikh.02\Logic.Task1\obj\Debug\Logic.Task1.dll
-C:\Users\Zhikh Anastasya\Documents\NET.S.2018.Zhikh.02\NET.S.2018.Zhikh.02\Logic.Task1\obj\Debug\Logic.Task1.pdb
