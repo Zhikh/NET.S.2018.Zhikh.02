@@ -43,7 +43,13 @@ namespace Logic.Task1
                 return DefaultValue;
             }
 
-            Mix(ref firstElement, secondElement, i, j);
+            for (int k = 0; k < MaxSize; ++k)
+            {
+                if ((k >= i) && (k <= j))
+                {
+                    firstElement = BitReplace(firstElement, secondElement, i, k);
+                }
+            }
 
             return firstElement;
         }
@@ -65,51 +71,15 @@ namespace Logic.Task1
                 throw new ArgumentException("Argument i can't be more than k!");
             }
 
-            if ((firstValue.GetBit(k) & 1) == 1)
+            if ((firstValue >> k & 1) == 1)
             {
                 firstValue ^= 1 << k;
             }
 
-            firstValue |= ((secondValue.GetBit(k - i)) & 1) << k;
+            firstValue |= (secondValue >> (k - i) & 1) << k;
 
             return firstValue;
         }
-
-        /// <summary>
-        /// This method mixes bits from two integer values.
-        /// </summary>
-        /// <param name="firstElement"> First value </param>
-        /// <param name="secondElement"> Second value </param>
-        /// <param name="i"> Left index </param>
-        /// <param name="j"> Right index </param>
-        private static void Mix(ref int firstElement, int secondElement, int i, int j)
-        {
-            for (int k = 0; k < MaxSize; ++k)
-            {
-                if ((k >= i) && (k <= j))
-                {
-                    firstElement = BitReplace(firstElement, secondElement, i, k);
-                }
-            }
-        }
-        
-        #region IntExtension
-        /// <summary>
-        /// This method return bit value by index.
-        /// </summary>
-        /// <param name="index"> Point on position of bit </param>
-        /// <returns> Bit value </returns>
-        /// <exception cref="ArgumentOutOfRangeException"> Sends when index is less than 0 or more than MaxSize of integer</exception>
-        private static int GetBit(this int value, int index)
-        {
-            if ((0 > index) || (index > MaxSize))
-            {
-                throw new ArgumentOutOfRangeException("Argument index can't be less than 0 and more than max size of type in bits!");
-            }
-
-            return (value >> index);
-        }
-        #endregion
         #endregion
     }
 }
