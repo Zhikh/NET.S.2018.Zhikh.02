@@ -19,7 +19,7 @@ namespace Logic.Task2.Tests
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Filter_WithNull_ThrowArgumentNullException()
-            => DigitWorker.Filter(1, null);
+            => DigitWorker.FilterDivision(1, null);
 
         [TestMethod]
         public void Filter_WithIntValues_ReturnExampleResult()
@@ -29,7 +29,7 @@ namespace Logic.Task2.Tests
 
             int[] expected = { 56, 456, 5 };
 
-            int[] actual = DigitWorker.Filter(value, array);
+            int[] actual = DigitWorker.FilterDivision(value, array);
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -47,7 +47,7 @@ namespace Logic.Task2.Tests
                 string expectedFromDb = TestContext.DataRow["Expected"].ToString();
                 int[] expected = ParseToIntArray(expectedFromDb);
 
-                int[] actual = DigitWorker.Filter(value, elements);
+                int[] actual = DigitWorker.FilterDivision(value, elements);
 
                 CollectionAssert.AreEqual(expected, actual);
             }

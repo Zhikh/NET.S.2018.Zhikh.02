@@ -8,7 +8,7 @@ namespace Logic.Task2.NUnitTests
     {
         [Test]
         public void Filter_WithNull_ThrowArgumentNullException()
-            => Assert.Throws<ArgumentNullException>(() => DigitWorker.Filter(1, null));
+            => Assert.Throws<ArgumentNullException>(() => DigitWorker.FilterDivision(1, null));
 
         [Test]
         public void Filter_WithExampleValues_ReturnExampleResult()
@@ -17,7 +17,7 @@ namespace Logic.Task2.NUnitTests
             int value = 7;
             int[] expected = { 7, 7, 70, 17 };
 
-            int[] actual = DigitWorker.Filter(value, array);
+            int[] actual = DigitWorker.FilterDivision(value, array);
 
             CollectionAssert.AreEqual(expected, actual);
         }

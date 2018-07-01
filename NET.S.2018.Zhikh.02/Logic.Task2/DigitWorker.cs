@@ -10,13 +10,13 @@ namespace Logic.Task2
     {
         #region Public methods
         /// <summary>
-        /// This method inserts bits from two values in new value by indexes.
+        /// This method finds all numbers that contain checkValue from array of elements (for search it uses division).
         /// </summary>
         /// <param name="elements"> Elements for searching in </param>
         /// <param name="checkValue"> Value for searching elements in array </param>
         /// <returns> List of elements that contain check value </returns>
         /// <exception cref="ArgumentNullException"> If elements null </exception>
-        public static int[] Filter(int checkValue, params int[] elements)
+        public static int[] FilterDivision(int checkValue, params int[] elements)
         {
             if (elements == null)
             {
@@ -28,6 +28,29 @@ namespace Logic.Task2
             foreach (var element in elements)
             {
                 if (element.IsContain(checkValue))
+                {
+                    result.Add(element);
+                }
+            }
+
+            return result.ToArray();
+        }
+
+        /// <summary>
+        /// This method finds all numbers that contain checkValue from array of elements (for search it uses String.Contains)
+        /// </summary>
+        /// <param name="elements"> Elements for searching in </param>
+        /// <param name="checkValue"> Value for searching elements in array </param>
+        /// <returns> List of elements that contain check value </returns>
+        public static int[] FilterString(int checkValue, int[] elements)
+        {
+            string checkString = checkValue.ToString();
+
+            var result = new List<int>();
+
+            foreach (var element in elements)
+            {
+                if (element.ToString().Contains(checkString))
                 {
                     result.Add(element);
                 }
