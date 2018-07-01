@@ -19,8 +19,25 @@ namespace Logic.Task1
         /// <param name="i"> Left index </param>
         /// <param name="j"> Right index </param>
         /// <returns> New value was created on first and second values base </returns>
+        /// <exception cref="ArgumentOutOfRangeException"> Sends when j is more than MaxSize of integer or when i is less than 0</exception>
+        /// <exception cref="ArgumentException"> Sends when i more than j </exception>
         public static int Insert(int firstElement, int secondElement, int i, int j)
         {
+            if (i < 0 || i > MaxSize)
+            {
+                throw new ArgumentOutOfRangeException("Argument i can't be less than 0!");
+            }
+
+            if (j > MaxSize || j < 0)
+            {
+                throw new ArgumentOutOfRangeException("Argument j can't be more than max size of type in bits!");
+            }
+
+            if (i > j)
+            {
+                throw new ArgumentException("Argument i can't be more than argument j!");
+            }
+
             if ((firstElement == 0) && (secondElement == 0))
             {
                 return DefaultValue;
@@ -65,25 +82,8 @@ namespace Logic.Task1
         /// <param name="secondElement"> Second value </param>
         /// <param name="i"> Left index </param>
         /// <param name="j"> Right index </param>
-        /// <exception cref="ArgumentOutOfRangeException"> Sends when j is more than MaxSize of integer or when i is less than 0</exception>
-        /// <exception cref="ArgumentException"> Sends when i more than j </exception>
         private static void Mix(ref int firstElement, int secondElement, int i, int j)
         {
-            if (i < 0 || i > MaxSize)
-            {
-                throw new ArgumentOutOfRangeException("Argument i can't be less than 0!");
-            }
-
-            if (j > MaxSize || j < 0)
-            {
-                throw new ArgumentOutOfRangeException("Argument j can't be more than max size of type in bits!");
-            }
-
-            if (i > j)
-            {
-                throw new ArgumentException("Argument i can't be more than argument j!");
-            }
-
             for (int k = 0; k < MaxSize; ++k)
             {
                 if ((k >= i) && (k <= j))
@@ -102,7 +102,7 @@ namespace Logic.Task1
         /// <exception cref="ArgumentOutOfRangeException"> Sends when index is less than 0 or more than MaxSize of integer</exception>
         private static int GetBit(this int value, int index)
         {
-            if (0 < index || index < MaxSize)
+            if ((0 > index) || (index > MaxSize))
             {
                 throw new ArgumentOutOfRangeException("Argument index can't be less than 0 and more than max size of type in bits!");
             }
