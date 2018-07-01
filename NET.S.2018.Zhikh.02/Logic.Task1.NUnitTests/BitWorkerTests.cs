@@ -12,7 +12,7 @@ namespace Logic.Task1.NUnitTests
             => Assert.Throws<ArgumentOutOfRangeException>(() => BitWorker.Insert(1, 1, 0, 34));
 
         [Test]
-        public void GreetingMethod_WithNegativeIndex_ThrowArgumentOutOfRangeException()
+        public void Insert_WithNegativeIndex_ThrowArgumentOutOfRangeException()
             => Assert.Throws<ArgumentOutOfRangeException>(() => BitWorker.Insert(1, 1, -8, 34));
 
         [Test]
