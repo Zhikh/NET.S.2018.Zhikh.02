@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -51,6 +52,49 @@ namespace Logic.Task2.Tests
 
                 CollectionAssert.AreEqual(expected, actual);
             }
+        }
+
+        [TestMethod]
+        public void FilterDivision_FilterString_BigValues_DivisionTimeLess()
+        {
+            int[] array = GenerateIntValues(10000, 10);
+            int value = 2;
+
+            var stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+            DigitWorker.FilterDivision(value, array);
+            stopwatch.Stop();
+
+            long divisionTime = stopwatch.ElapsedMilliseconds;
+
+            stopwatch.Restart();
+            DigitWorker.FilterString(value, array);
+            stopwatch.Stop();
+
+            long stringTime = stopwatch.ElapsedMilliseconds;
+
+            bool isBigger = false;
+
+            if(stringTime < divisionTime)
+            {
+                isBigger = true;
+            }
+
+            Assert.IsFalse(isBigger);
+        }
+
+        private int[] GenerateIntValues(int n, int range)
+        {
+            var result = new int[n];
+            var rng = new Random(range);
+
+            for (int i = 0; i < n; ++i)
+            {
+                result[i] = rng.Next();
+            }
+
+            return result;
         }
 
         private int[] ParseToIntArray(string str)
