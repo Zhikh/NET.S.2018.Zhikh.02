@@ -69,6 +69,8 @@ namespace Logic.Task2
         /// <returns> If value contain checkValue return true, else - false </returns>
         private static bool IsContain(this int value, int checkValue)
         {
+            value = Math.Abs(value);
+
             int wholePart = value / 10,
                 modulo = value % 10;
 
