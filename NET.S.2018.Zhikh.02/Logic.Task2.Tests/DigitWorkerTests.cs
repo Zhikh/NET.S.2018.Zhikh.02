@@ -20,7 +20,7 @@ namespace Logic.Task2.Tests
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void FilterDivision_WithNull_ThrowArgumentNullException()
-            => DigitWorker.FilterDivision(1, null);
+            => DigitWorker.FilterDivision(1, new IntContain(), null);
 
         [TestMethod]
         public void FilterDivision_WithIntValues_ReturnExampleResult()
@@ -30,7 +30,7 @@ namespace Logic.Task2.Tests
 
             int[] expected = { 56, 456, 5 };
 
-            int[] actual = DigitWorker.FilterDivision(value, array);
+            int[] actual = DigitWorker.FilterDivision(value, new IntContain(), array);
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -48,7 +48,7 @@ namespace Logic.Task2.Tests
                 string expectedFromDb = TestContext.DataRow["Expected"].ToString();
                 int[] expected = ParseToIntArray(expectedFromDb);
 
-                int[] actual = DigitWorker.FilterDivision(value, elements);
+                int[] actual = DigitWorker.FilterDivision(value, new IntContain(), elements);
 
                 CollectionAssert.AreEqual(expected, actual);
             }
@@ -63,7 +63,7 @@ namespace Logic.Task2.Tests
             var stopwatch = new Stopwatch();
 
             stopwatch.Start();
-            DigitWorker.FilterDivision(value, array);
+            DigitWorker.FilterDivision(value, new IntContain(), array);
             stopwatch.Stop();
 
             long divisionTime = stopwatch.ElapsedMilliseconds;

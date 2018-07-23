@@ -14,20 +14,21 @@ namespace Logic.Task2
         /// </summary>
         /// <param name="elements"> Elements for searching in </param>
         /// <param name="checkValue"> Value for searching elements in array </param>
+        /// <param name="contain"> Rule for checking </param>
         /// <returns> List of elements that contain check value </returns>
         /// <exception cref="ArgumentNullException"> If elements null </exception>
-        public static int[] FilterDivision(int checkValue, params int[] elements)
+        public static T[] FilterDivision<T>(T checkValue, IContain<T> contain, params T[] elements)
         {
             if (elements == null)
             {
                 throw new ArgumentNullException("Argument elements can't benull!");
             }
 
-            var result = new List<int>();
+            var result = new List<T>();
 
             foreach (var element in elements)
             {
-                if (element.IsContain(checkValue))
+                if (contain.IsContain(element, checkValue))
                 {
                     result.Add(element);
                 }
@@ -37,16 +38,29 @@ namespace Logic.Task2
         }
 
         /// <summary>
+        /// This method finds all numbers that contain checkValue from array of elements (for search it uses division).
+        /// </summary>
+        /// <param name="elements"> Elements for searching in </param>
+        /// <param name="checkValue"> Value for searching elements in array </param>
+        /// <param name="isContain"> Rule for checking </param>
+        /// <returns> List of elements that contain check value </returns>
+        /// <exception cref="ArgumentNullException"> If elements null </exception>
+        public static T[] FilterDivision<T>(T checkValue, Func<T, T, bool> isContain, params T[] elements)
+        {
+            return FilterDivision(checkValue, new Nested<T>(isContain), elements);
+        }
+
+        /// <summary>
         /// This method finds all numbers that contain checkValue from array of elements (for search it uses String.Contains)
         /// </summary>
         /// <param name="elements"> Elements for searching in </param>
         /// <param name="checkValue"> Value for searching elements in array </param>
         /// <returns> List of elements that contain check value </returns>
-        public static int[] FilterString(int checkValue, int[] elements)
+        public static T[] FilterString<T>(T checkValue, T[] elements)
         {
             string checkString = checkValue.ToString();
 
-            var result = new List<int>();
+            var result = new List<T>();
 
             foreach (var element in elements)
             {
@@ -61,40 +75,19 @@ namespace Logic.Task2
         #endregion
 
         #region Private methods
-        /// <summary>
-        /// This method checks if checkValue in value.
-        /// </summary>
-        /// <param name="value"> Number for checking </param>
-        /// <param name="checkValue"> Numeral </param>
-        /// <returns> If value contain checkValue return true, else - false </returns>
-        private static bool IsContain(this int value, int checkValue)
+        private class Nested<T> : IContain<T>
         {
-            value = Math.Abs(value);
+            private Func<T, T, bool> _callback;
 
-            int wholePart = value / 10,
-                modulo = value % 10;
-
-            bool result = false;
-
-            do
+            public Nested(Func<T, T, bool> callback)
             {
-                if ((modulo == checkValue) || (wholePart == checkValue))
-                {
-                    result = true;
-                }
-                else
-                {
-                    if (wholePart != 0)
-                    {
-                        modulo = wholePart % 10;
-
-                        wholePart /= 10;
-                    }
-                }
+                _callback = callback;
             }
-            while ((!result) && (wholePart != 0));
 
-            return result;
+            public bool IsContain(T element, T value)
+            {
+                return _callback(element, value);
+            }
         }
         #endregion
     }
