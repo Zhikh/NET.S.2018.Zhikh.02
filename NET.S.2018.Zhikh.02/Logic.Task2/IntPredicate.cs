@@ -6,17 +6,20 @@ namespace Logic.Task2
     {
         private int _checkValue;
 
+        /// <summary>
+        /// Initialize StringPredicate object
+        /// </summary>
+        /// <param name="checkValue"> Value for checking </param>
         public IntPredicate(int checkValue)
         {
             _checkValue = checkValue;
         }
 
         /// <summary>
-        /// This method checks if checkValue in value.
+        /// Check the next: value is consist checkValue
         /// </summary>
-        /// <param name="value"> Number for checking </param>
-        /// <param name="_checkValue"> Numeral </param>
-        /// <returns> If value contain checkValue return true, else - false </returns>
+        /// <param name="value"> Value for checking </param>
+        /// <returns> If value has checkValue, it will be true, else - false </returns>
         public bool IsMatch(int value)
         {
             value = Math.Abs(value);
