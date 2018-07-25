@@ -14,10 +14,10 @@ namespace Logic.Task2
         /// </summary>
         /// <param name="elements"> Elements for searching in </param>
         /// <param name="checkValue"> Value for searching elements in array </param>
-        /// <param name="contain"> Rule for checking </param>
+        /// <param name="predicate"> Rule for checking </param>
         /// <returns> List of elements that contain check value </returns>
         /// <exception cref="ArgumentNullException"> If elements null </exception>
-        public static T[] FilterDivision<T>(T checkValue, IContain<T> contain, params T[] elements)
+        public static T[] FilterDivision<T>(T checkValue, IPredicate<T> predicate, params T[] elements)
         {
             if (elements == null)
             {
@@ -28,7 +28,7 @@ namespace Logic.Task2
 
             foreach (var element in elements)
             {
-                if (contain.IsContain(element, checkValue))
+                if (predicate.IsMatch(element))
                 {
                     result.Add(element);
                 }
@@ -42,12 +42,12 @@ namespace Logic.Task2
         /// </summary>
         /// <param name="elements"> Elements for searching in </param>
         /// <param name="checkValue"> Value for searching elements in array </param>
-        /// <param name="isContain"> Rule for checking </param>
+        /// <param name="predicate"> Rule for checking </param>
         /// <returns> List of elements that contain check value </returns>
         /// <exception cref="ArgumentNullException"> If elements null </exception>
-        public static T[] FilterDivision<T>(T checkValue, Func<T, T, bool> isContain, params T[] elements)
+        public static T[] FilterDivision<T>(T checkValue, Predicate<T> predicate, params T[] elements)
         {
-            return FilterDivision(checkValue, new Nested<T>(isContain), elements);
+            return FilterDivision(checkValue, new Nested<T>(predicate), elements);
         }
 
         /// <summary>
@@ -75,18 +75,18 @@ namespace Logic.Task2
         #endregion
 
         #region Private methods
-        private class Nested<T> : IContain<T>
+        private class Nested<T> : IPredicate<T>
         {
-            private Func<T, T, bool> _callback;
+            private Predicate<T> _callback;
 
-            public Nested(Func<T, T, bool> callback)
+            public Nested(Predicate<T> callback)
             {
                 _callback = callback;
             }
 
-            public bool IsContain(T element, T value)
+            public bool IsMatch(T value)
             {
-                return _callback(element, value);
+                return _callback(value);
             }
         }
         #endregion
